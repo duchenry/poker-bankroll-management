@@ -1,0 +1,11 @@
+column name,type,default,note
+id,text,,session.id
+date,text,,
+type,text,,
+buyIn,numeric,,
+cashOut,numeric,,
+profit,numeric,,
+notes,text,,
+duration,numeric,,
+created_at,timestamptz,now(),
+user_id,text,,để sau dùng auth (tạm để null)
