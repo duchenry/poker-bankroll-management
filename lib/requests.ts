@@ -20,7 +20,7 @@ export const fetchSessions = async () => {
 };
 
 // ➕ Thêm 1 session mới vào database
-export const addSession = async (session) => {
+export const addSession = async (session: any) => {
   const { data, error } = await supabase
     .from("sessions")
     .insert([session])

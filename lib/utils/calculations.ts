@@ -5,8 +5,8 @@ export function calculateTotalBankroll(sessions: Session[]) {
 }
 
 export function calculateROI(sessions: Session[]) {
-  const totalBuyIn = sessions.reduce((sum, s) => sum + s.buyIn, 0);
-  const totalCashOut = sessions.reduce((sum, s) => sum + s.cashOut, 0);
+  const totalBuyIn = sessions.reduce((sum, s) => sum + s.buy_in, 0);
+  const totalCashOut = sessions.reduce((sum, s) => sum + s.cash_out, 0);
   if (totalBuyIn === 0) return 0;
   return ((totalCashOut - totalBuyIn) / totalBuyIn) * 100;
 }
