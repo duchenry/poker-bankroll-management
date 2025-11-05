@@ -5,13 +5,12 @@ import { supabase } from "@/lib/supabaseClient";
 export interface Session {
   id: string;
   date: string;
-  type: string;
+  session_type: string;
   buy_in: number;
   cash_out: number;
   profit: number;
   notes: string;
   duration: number;
-  created_at?: string;
 }
 
 interface SessionStore {
@@ -61,7 +60,7 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
     const { error } = await supabase.from("sessions").insert([
       {
         date: s.date,
-        type: s.type,
+        session_type: s.session_type,
         buy_in: s.buy_in,
         cash_out: s.cash_out,
         notes: s.notes,
@@ -79,6 +78,45 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
   } finally {
     set({ loading: false });
   }
+  },
+
+    editSession: async (id: string, updatedFields:Partial<Session>) => {
+    try {
+      set(() => ({ loading: true, error: null }));
+
+      const oldSession = get().sessions.find((s) => s.id === id);
+
+      if (!oldSession) throw new Error("Session not found");
+
+      const finalUpdate: Partial<Session> = {
+        ...updatedFields,
+        // profit: newProfit,
+      };
+
+      const { profit, ...safeUpdate } = finalUpdate;
+
+      const { data, error } = await supabase
+        .from("sessions")
+        .update(safeUpdate)
+        .eq("id", id)
+        .select()
+        .single();
+
+      if (error) console.log(error);
+
+      set((state) => ({
+        sessions: state.sessions.map((s) =>
+          s.id === id ? (data as Session) : s
+        ),
+        loading: false,
+        error: null,
+      }));
+    } catch (err: any) {
+      set(() => ({
+        error: err.message || "Failed to update session",
+        loading: false,
+      }));
+    }
   },
 
   // ❌ Xóa session
