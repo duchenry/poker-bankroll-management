@@ -35,7 +35,6 @@ export default function SessionForm() {
       duration: durationNum || 0,
       notes,
     };
-    console.log("newSession", newSession)
 
     addSession(newSession);
 

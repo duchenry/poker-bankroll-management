@@ -23,7 +23,6 @@ export default function SessionList() {
         No sessions recorded yet. Start by adding one above!
       </p>
     );
-    console.log("session", sessions)
 
   return (
     <>
@@ -51,7 +50,7 @@ export default function SessionList() {
                 className="border-t border-gray-800 hover:bg-gray-800 transition"
               >
                 <td className="p-3">{s.date}</td>
-                <td className="p-3 capitalize">{s.session_type}</td>
+                <td className="p-3 capitalize">{s.type}</td>
                 <td className="p-3">
                   ${typeof s.buy_in === "number" ? s.buy_in.toFixed(2) : "—"}
                 </td>
@@ -126,9 +125,9 @@ export default function SessionList() {
               <div>
                 <label className="block text-gray-300 mb-1">Session Type</label>
                 <select
-                  value={editingSession.session_type}
+                  value={editingSession.type}
                   onChange={(e) =>
-                    setEditingSession({ ...editingSession, session_type: e.target.value })
+                    setEditingSession({ ...editingSession, type: e.target.value })
                   }
                   className="w-full bg-gray-700 text-white p-2 rounded-md border border-gray-600"
                 >

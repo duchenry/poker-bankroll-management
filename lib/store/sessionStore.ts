@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabaseClient";
 export interface Session {
   id: string;
   date: string;
-  session_type: string;
+  type: string;
   buy_in: number;
   cash_out: number;
   profit: number;
@@ -21,6 +21,7 @@ interface SessionStore {
   fetchSessions: () => Promise<void>;
   addSession: (s: Session) => Promise<void>;
   deleteSession: (id: string) => Promise<void>;
+  editSession: (id: string, updatedFields: Partial<Session>) => Promise<void>;
 
   fetchInitialBankroll: () => Promise<void>;
   setInitialBankroll: (value: number) => Promise<void>;
@@ -60,7 +61,7 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
     const { error } = await supabase.from("sessions").insert([
       {
         date: s.date,
-        session_type: s.session_type,
+        type: s.type,
         buy_in: s.buy_in,
         cash_out: s.cash_out,
         notes: s.notes,
@@ -80,7 +81,21 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
   }
   },
 
-    editSession: async (id: string, updatedFields:Partial<Session>) => {
+  // ❌ Xóa session
+  deleteSession: async (id: string) => {
+    set({ loading: true });
+    try {
+      const { error } = await supabase.from("sessions").delete().eq("id", id);
+      if (error) console.error("deleteSession error:", error);
+      else await get().fetchSessions();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  editSession: async (id: string, updatedFields:Partial<Session>) => {
     try {
       set(() => ({ loading: true, error: null }));
 
@@ -116,20 +131,6 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
         error: err.message || "Failed to update session",
         loading: false,
       }));
-    }
-  },
-
-  // ❌ Xóa session
-  deleteSession: async (id: string) => {
-    set({ loading: true });
-    try {
-      const { error } = await supabase.from("sessions").delete().eq("id", id);
-      if (error) console.error("deleteSession error:", error);
-      else await get().fetchSessions();
-    } catch (e) {
-      console.error(e);
-    } finally {
-      set({ loading: false });
     }
   },
 
