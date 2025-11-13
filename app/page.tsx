@@ -1,6 +1,7 @@
 "use client";
 
 import Dashboard from "./components/DashBoard";
+import RangeGrid from "./components/range/RangeGrid";
 import SessionForm from "./components/SessionForm";
 import SessionList from "./components/SessionList";
 
@@ -25,6 +26,11 @@ export default function Home() {
         <section className="mt-10">
           <h2 className="text-2xl font-semibold mb-4">📘 All Sessions</h2>
           <SessionList />
+        </section>
+        {/* Range Grid */}
+        <section className="mt-10 mx-auto max-w-5xl p-6">
+          <h2 className="mb-4 text-2xl font-bold text-slate-100">Range Builder</h2>
+          <RangeGrid />
         </section>
       </div>
     </main>
