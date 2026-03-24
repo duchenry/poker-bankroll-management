@@ -27,11 +27,10 @@ export default function Home() {
           <h2 className="text-2xl font-semibold mb-4">📘 All Sessions</h2>
           <SessionList />
         </section>
-        {/* Range Grid */}
-        <section className="mt-10 mx-auto max-w-5xl p-6">
+        {/* <section className="mt-10 mx-auto max-w-5xl p-6">
           <h2 className="mb-4 text-2xl font-bold text-slate-100">Range Builder</h2>
           <RangeGrid />
-        </section>
+        </section> */}
       </div>
     </main>
   );
