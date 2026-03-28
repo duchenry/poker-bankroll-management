@@ -30,7 +30,7 @@ export default function Dashboard() {
   useEffect(() => {
     setTempValue(initialBankroll.toString());
   }, [initialBankroll]);
-
+  console.log("sessions", sessions)
   const totalProfit = sessions.reduce((acc, s) => acc + s.profit, 0);
   const currentBankroll = initialBankroll + totalProfit;
   const totalSessions = sessions.length;

@@ -13,18 +13,19 @@ export default function SessionForm() {
   const [cashOut, setCashOut] = useState("");
   const [duration, setDuration] = useState("");
   const [notes, setNotes] = useState("");
-
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     const buyInNum = parseFloat(buyIn);
     const cashOutNum = parseFloat(cashOut);
     const durationNum = parseFloat(duration);
-
+    
     if (isNaN(buyInNum) || isNaN(cashOutNum)) return;
-
+    
     const profit = cashOutNum - buyInNum;
 
+    console.log("profit", profit)
     const newSession = {
       id: uuidv4(),
       date,
@@ -35,9 +36,10 @@ export default function SessionForm() {
       duration: durationNum || 0,
       notes,
     };
-
+    
+    console.log("newSession", newSession)
     addSession(newSession);
-
+    
     // Reset form
     setDate("");
     setType("low");
@@ -46,11 +48,11 @@ export default function SessionForm() {
     setDuration("");
     setNotes("");
   };
-
+  
   return (
     <form
-      onSubmit={handleSubmit}
-      className="bg-gray-900 p-6 rounded-xl shadow-lg flex flex-col gap-4"
+    onSubmit={handleSubmit}
+    className="bg-gray-900 p-6 rounded-xl shadow-lg flex flex-col gap-4"
     >
       <div className="grid grid-cols-2 gap-4">
         <div>

@@ -64,6 +64,7 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
         type: s.type,
         buy_in: s.buy_in,
         cash_out: s.cash_out,
+        profit: s.profit,
         notes: s.notes,
         duration: s.duration,
       },
